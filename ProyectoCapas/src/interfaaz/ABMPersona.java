@@ -92,6 +92,12 @@ public class ABMPersona extends JFrame {
 		JLabel lblTitulo = new JLabel("ABM Personas");
 		
 		JButton btnBorrar = new JButton("Borrar");
+		btnBorrar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				borrar();
+			}
+		});
 		
 		
 		JButton btnGuardar = new JButton("Guardar");
@@ -179,18 +185,18 @@ public class ABMPersona extends JFrame {
 			int bandera=validarDni();
 			if (bandera==3){
 				cp.guardarPersona(p);
-				JOptionPane.showMessageDialog(null, "Guardado Exitosamente!");
-				borrar();
+				JOptionPane.showMessageDialog(null, "Guardado Exitosamente!","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+				borrarCampos();
 			}
 			if (bandera==1) {
 				cp.modificarPersona(p);
-				JOptionPane.showMessageDialog(null, "Persona Modificada Exitosamente!");
-				borrar();
+				JOptionPane.showMessageDialog(null, "Persona Modificada Exitosamente!","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+				borrarCampos();
 			}
 		}
 	}
 	
-	private void borrar() {
+	private void borrarCampos() {
 		txtDni.setText("");
 		txtNombre.setText("");
 		txtEmail.setText("");
@@ -199,8 +205,8 @@ public class ABMPersona extends JFrame {
 	}
 
 	private boolean validarCampos() {
-		if (txtDni.getText()=="" || txtNombre.getText()=="" || txtApellido.getText()=="" || txtEmail.getText()==""){
-			JOptionPane.showMessageDialog(null, "Existen campos incompletos");
+		if (txtDni.getText().length()==0 || txtNombre.getText().length()==0 || txtApellido.getText().length()==0 || txtEmail.getText().length()==0){
+			JOptionPane.showMessageDialog(null, "Existen campos incompletos","Error",JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		else 
@@ -210,7 +216,7 @@ public class ABMPersona extends JFrame {
 	
 	private int validarDni() {
 		if(cp.buscarPersona(Integer.parseInt(txtDni.getText()))!=null){
-			int dialogResult=JOptionPane.showConfirmDialog(null, "¿Desea modificar al usuario?");
+			int dialogResult=JOptionPane.showConfirmDialog(null, "¿Desea modificar al usuario?", "Mensaje", JOptionPane.QUESTION_MESSAGE);
 			if(dialogResult == JOptionPane.YES_OPTION){ 
 				return 1;
 			}
@@ -233,7 +239,22 @@ public class ABMPersona extends JFrame {
 			txtEmail.setText(p.getEmail());
 		}
 		else
-			JOptionPane.showMessageDialog(null, "No existe Persona");
+			JOptionPane.showMessageDialog(null, "No existe Persona", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	private void borrar() {
+		if(validarCampos()){
+			Persona p;
+			p=cp.buscarPersona(Integer.parseInt(txtDni.getText()));
+				if(p!=null){	
+					cp.borrarPersona(p);
+					borrarCampos();
+					JOptionPane.showMessageDialog(null, "Persona Borrada exitosamente","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+				}
+				else
+					JOptionPane.showMessageDialog(null, "No existe persona para borrar", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		
 	}
 	
 	
