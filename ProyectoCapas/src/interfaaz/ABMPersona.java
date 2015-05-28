@@ -18,6 +18,8 @@ import negocio.ControladorPersona;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Font;
+import java.awt.Color;
 
 public class ABMPersona extends JFrame {
 	
@@ -56,18 +58,23 @@ public class ABMPersona extends JFrame {
 	public ABMPersona() {
 		setTitle("ABM Persona");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 294);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(153, 0, 0));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		JLabel lblDni = new JLabel("DNI:");
+		lblDni.setForeground(new Color(255, 255, 255));
 		
 		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setForeground(new Color(255, 255, 255));
 		
 		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setForeground(new Color(255, 255, 255));
 		
 		JLabel lblApellido = new JLabel("Apellido:");
+		lblApellido.setForeground(new Color(255, 255, 255));
 		
 		txtDni = new JTextField();
 		txtDni.setColumns(10);
@@ -90,6 +97,8 @@ public class ABMPersona extends JFrame {
 		});
 		
 		JLabel lblTitulo = new JLabel("ABM Personas");
+		lblTitulo.setForeground(new Color(255, 255, 255));
+		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JButton btnBorrar = new JButton("Borrar");
 		btnBorrar.addMouseListener(new MouseAdapter() {
@@ -109,90 +118,112 @@ public class ABMPersona extends JFrame {
 
 			
 		});
+		
+		JLabel lblBottom = new JLabel("*Todos los campos son obligatorios.");
+		lblBottom.setForeground(new Color(255, 255, 255));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(210, Short.MAX_VALUE)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(157, Short.MAX_VALUE)
 					.addComponent(lblTitulo)
 					.addGap(168))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(38)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblNombre)
 						.addComponent(lblEmail)
-						.addComponent(lblDni))
+						.addComponent(lblDni)
+						.addComponent(lblNombre))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(txtNombre, GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-								.addComponent(txtDni))
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(txtDni)
+								.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(27)
+									.addComponent(btnBuscar, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+									.addGap(41))
+								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 									.addGap(10)
 									.addComponent(lblApellido)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(txtApellido, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(28)
-									.addComponent(btnBuscar, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE))))
-						.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(38, Short.MAX_VALUE))
+									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(txtApellido, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+									.addGap(1)))
+							.addContainerGap(38, Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())))
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(135)
+					.addContainerGap(126, Short.MAX_VALUE)
 					.addComponent(btnBorrar)
-					.addGap(18)
+					.addGap(36)
 					.addComponent(btnGuardar)
-					.addContainerGap(119, Short.MAX_VALUE))
+					.addContainerGap(128, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addContainerGap(252, Short.MAX_VALUE)
+					.addComponent(lblBottom))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblTitulo)
-					.addGap(44)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+					.addGap(24)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblDni)
-						.addComponent(txtDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnBuscar))
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(btnBuscar)
+							.addComponent(txtDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblNombre))
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(txtApellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblApellido)))
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNombre)
-						.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblApellido)
-						.addComponent(txtApellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(20)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblEmail)
 						.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
+					.addGap(27)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnBorrar)
-						.addComponent(btnGuardar))
-					.addContainerGap(41, Short.MAX_VALUE))
+						.addComponent(btnGuardar)
+						.addComponent(btnBorrar))
+					.addGap(18)
+					.addComponent(lblBottom)
+					.addGap(26))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
 	
 	private void guardar() {
-		if (validarCampos()){
-			Persona p=new Persona();
-			p.setDni(Integer.parseInt(txtDni.getText()));
-			p.setNombre(txtNombre.getText());
-			p.setApellido(txtApellido.getText());
-			p.setEmail(txtEmail.getText());
-			int bandera=validarDni();
-			if (bandera==3){
-				cp.guardarPersona(p);
-				JOptionPane.showMessageDialog(null, "Guardado Exitosamente!","Mensaje",JOptionPane.INFORMATION_MESSAGE);
-				borrarCampos();
+		try{
+			if (validarCampos()){
+				Persona p=new Persona();
+				p.setDni(Integer.parseInt(txtDni.getText()));
+				p.setNombre(txtNombre.getText());
+				p.setApellido(txtApellido.getText());
+				p.setEmail(txtEmail.getText());
+				boolean flag = cp.validarExistencia(Integer.parseInt(txtDni.getText()));
+				if (flag){
+					if(JOptionPane.showConfirmDialog(null, "La persona ingresada ya existe.\n Desea modificarla?")==JOptionPane.YES_OPTION){
+						cp.modificarPersona(p);
+						borrarCampos();
+						JOptionPane.showMessageDialog(null, "La persona ha sido modificada.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+				else{
+					cp.guardarPersona(p);
+					borrarCampos();
+					JOptionPane.showMessageDialog(null, "La persona ha sido registrada","Aviso",JOptionPane.INFORMATION_MESSAGE);
+				}					
 			}
-			if (bandera==1) {
-				cp.modificarPersona(p);
-				JOptionPane.showMessageDialog(null, "Persona Modificada Exitosamente!","Mensaje",JOptionPane.INFORMATION_MESSAGE);
-				borrarCampos();
-			}
+		}
+		catch(NumberFormatException nfe){
+			JOptionPane.showMessageDialog(null, "El dni debe contener solo números","Aviso",JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
@@ -210,24 +241,8 @@ public class ABMPersona extends JFrame {
 			return false;
 		}
 		else 
-			return true;
-		
-	}
-	
-	private int validarDni() {
-		if(cp.buscarPersona(Integer.parseInt(txtDni.getText()))!=null){
-			int dialogResult=JOptionPane.showConfirmDialog(null, "¿Desea modificar al usuario?", "Mensaje", JOptionPane.QUESTION_MESSAGE);
-			if(dialogResult == JOptionPane.YES_OPTION){ 
-				return 1;
-			}
-			else
-				return 2;
-			
-		}
-		else
-			return 3;
-		
-	}
+			return true;		
+	}	
 
 	private void buscar() {
 		ControladorPersona cp=new ControladorPersona();
@@ -239,25 +254,20 @@ public class ABMPersona extends JFrame {
 			txtEmail.setText(p.getEmail());
 		}
 		else
-			JOptionPane.showMessageDialog(null, "No existe Persona", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "No existe Persona","Error",JOptionPane.ERROR_MESSAGE);
 	}
 	
-	private void borrar() {
+	private void borrar(){
 		if(validarCampos()){
-			Persona p;
-			p=cp.buscarPersona(Integer.parseInt(txtDni.getText()));
-				if(p!=null){	
-					cp.borrarPersona(p);
+			if(cp.borrarPersona(Integer.parseInt(txtDni.getText()))){
+				int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro?");
+				if(respuesta == JOptionPane.YES_OPTION){
 					borrarCampos();
-					JOptionPane.showMessageDialog(null, "Persona Borrada exitosamente","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Persona borrada","Aviso",JOptionPane.INFORMATION_MESSAGE);
 				}
-				else
-					JOptionPane.showMessageDialog(null, "No existe persona para borrar", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else
+				JOptionPane.showMessageDialog(null, "No existe Persona para borrar","Error",JOptionPane.ERROR_MESSAGE);			
 		}
-		
-	}
-	
-	
-	
-	
+	}	
 }
