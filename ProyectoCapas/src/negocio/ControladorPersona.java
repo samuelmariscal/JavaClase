@@ -1,6 +1,8 @@
 package negocio;
 
 
+import java.sql.SQLException;
+
 import data.CatalogoPersonas;
 import entidades.Persona;
 
@@ -15,7 +17,7 @@ public class ControladorPersona {
 		p=cp.getByDni(dni);
 		return p;
 	}
-	public void guardarPersona(Persona p){
+	public void guardarPersona(Persona p) throws ClassNotFoundException, SQLException{
 		cp.addPersona(p);
 	}
 	public void modificarPersona(Persona p){

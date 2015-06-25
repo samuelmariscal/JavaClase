@@ -20,6 +20,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
 import java.awt.Color;
+import java.sql.SQLException;
 
 public class ABMPersona extends JFrame {
 	
@@ -222,7 +223,7 @@ public class ABMPersona extends JFrame {
 				}					
 			}
 		}
-		catch(NumberFormatException nfe){
+		catch(NumberFormatException | ClassNotFoundException | SQLException nfe){
 			JOptionPane.showMessageDialog(null, "El dni debe contener solo números","Aviso",JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
