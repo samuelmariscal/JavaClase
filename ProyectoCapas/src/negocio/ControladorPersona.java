@@ -12,7 +12,7 @@ public class ControladorPersona {
 		
 	}
 	
-	public Persona buscarPersona(int dni){
+	public Persona buscarPersona(int dni) throws ClassNotFoundException, SQLException{
 		Persona p;
 		p=cp.getByDni(dni);
 		return p;
@@ -23,7 +23,7 @@ public class ControladorPersona {
 	public void modificarPersona(Persona p){
 		cp.modifyPersona(p);
 	}
-	public boolean borrarPersona(int dni){
+	public boolean borrarPersona(int dni) throws ClassNotFoundException, SQLException{
 		Persona p;
 		if (validarExistencia(dni)) {
 			p = cp.getByDni(dni);
@@ -34,7 +34,7 @@ public class ControladorPersona {
 			return false;
 	}
 	
-	public boolean validarExistencia(int dni) {
+	public boolean validarExistencia(int dni) throws ClassNotFoundException, SQLException {
 		if(buscarPersona(dni)!=null)
 				return true;
 		else

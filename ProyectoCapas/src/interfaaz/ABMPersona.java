@@ -20,6 +20,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.sql.SQLException;
 
 public class ABMPersona extends JFrame {
@@ -247,8 +248,19 @@ public class ABMPersona extends JFrame {
 
 	private void buscar() {
 		ControladorPersona cp=new ControladorPersona();
-		Persona p;
-		p=cp.buscarPersona(Integer.parseInt(txtDni.getText()));
+		Persona p = new Persona();
+		try {
+			p=cp.buscarPersona(Integer.parseInt(txtDni.getText()));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (p != null){
 			txtNombre.setText(p.getNombre());
 			txtApellido.setText(p.getApellido());
@@ -260,15 +272,29 @@ public class ABMPersona extends JFrame {
 	
 	private void borrar(){
 		if(validarCampos()){
-			if(cp.borrarPersona(Integer.parseInt(txtDni.getText()))){
-				int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro?");
-				if(respuesta == JOptionPane.YES_OPTION){
-					borrarCampos();
-					JOptionPane.showMessageDialog(null, "Persona borrada","Aviso",JOptionPane.INFORMATION_MESSAGE);
+			try {
+				if(cp.borrarPersona(Integer.parseInt(txtDni.getText()))){
+					int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro?");
+					if(respuesta == JOptionPane.YES_OPTION){
+						borrarCampos();
+						JOptionPane.showMessageDialog(null, "Persona borrada","Aviso",JOptionPane.INFORMATION_MESSAGE);
+					}
 				}
-			}
-			else
-				JOptionPane.showMessageDialog(null, "No existe Persona para borrar","Error",JOptionPane.ERROR_MESSAGE);			
+				else
+					JOptionPane.showMessageDialog(null, "No existe Persona para borrar","Error",JOptionPane.ERROR_MESSAGE);
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (HeadlessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		}
 	}	
 }
