@@ -5,12 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.mysql.jdbc.Statement;
-
 import entidades.Persona;
-
 
 public class ConexionDB {
 	
@@ -33,7 +31,6 @@ public class ConexionDB {
 		stmt.setString(3,p.getApellido());
 		stmt.setString(4,p.getEmail());
 		
-		
 		stmt.execute();
 		
 		stmt.close();
@@ -43,57 +40,70 @@ public class ConexionDB {
 	public ArrayList<Persona> getAll() throws ClassNotFoundException, SQLException{
 		Class.forName(dbDriver);
 		
-		Connection conn = DriverManager.getConnection("jdbc:mysql://"+ host+":"+port+"/"+db+"?user="+user+"&password="+pass);
-
-		Statement stmt = (Statement) conn.createStatement();
-		ArrayList<Persona> personas =new ArrayList<>();
-		ResultSet rs= stmt.executeQuery("select * from personas;");
+		Connection conn=DriverManager.getConnection("jdbc:mysql://" + host+":"+port+"/"+db+"?user="+user+"&password="+pass);
+		
+		Statement stmt = conn.createStatement();
+		ResultSet rs=stmt.executeQuery("select * from personas");
+		
+		ArrayList<Persona> listPersona= new ArrayList<>();
+		
 		while(rs.next()){
-			Persona p=new Persona();
+			Persona p = new Persona();
 			p.setId(rs.getInt("id"));
 			p.setDni(rs.getInt("dni"));
 			p.setNombre(rs.getString("nombre"));
 			p.setApellido(rs.getString("apellido"));
 			p.setEmail(rs.getString("email"));
-			
-			personas.add(p);
+			listPersona.add(p);
 		}
 		
-		rs.close();
-		
 		stmt.close();
-		
+		rs.close();
 		conn.close();
-		return personas;
-		
+		return listPersona;
 	}
+	
 	
 	public Persona getByDni(int dni) throws ClassNotFoundException, SQLException{
 		Class.forName(dbDriver);
 		
-		Connection conn = DriverManager.getConnection("jdbc:mysql://"+ host+":"+port+"/"+db+"?user="+user+"&password="+pass);
-
-		PreparedStatement stmt = conn.prepareStatement("select * from personas where dni=?");
-		stmt.setInt(1,dni);
-		ResultSet rs= stmt.executeQuery();
+		Connection conn=DriverManager.getConnection("jdbc:mysql://" + host+":"+port+"/"+db+"?user="+user+"&password="+pass);
+		
 		Persona p=new Persona();
-		if (rs.next()==true) {
+		
+		PreparedStatement stmt=conn.prepareStatement("select * from personas where dni=?");
+		stmt.setInt(1,dni);
+		
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()==true){
 			p.setId(rs.getInt("id"));
 			p.setDni(rs.getInt("dni"));
-			p.setNombre(rs.getString("nombre"));
 			p.setApellido(rs.getString("apellido"));
 			p.setEmail(rs.getString("email"));
-		} else {
+			p.setNombre(rs.getString("nombre"));
+			
+		}
+		else{
 			p=null;
 		}
 		rs.close();
-		
 		stmt.close();
-		
-		conn.close();
+		conn.close();	
 		return p;
+	} 
+
+	public void delete(int dni) throws ClassNotFoundException, SQLException{
+		Class.forName(dbDriver);
+		
+		Connection conn=DriverManager.getConnection("jdbc:mysql://" + host+":"+port+"/"+db+"?user="+user+"&password="+pass);
+		
+		PreparedStatement stmt=conn.prepareStatement("delete from personas where dni=?");
+		stmt.setInt(1, dni);
+		
+		stmt.execute();
+		stmt.close();
+		conn.close();
+		
 		
 	}
-
-
 }
